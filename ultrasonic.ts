@@ -1,15 +1,16 @@
-﻿// MakerBit blocks supporting a HC-SR04 ultrasonic distance sensor changed for Calliope Mini
+// MakerBit blocks supporting a HC-SR04 ultrasonic distance sensor changed for Calliope Mini
 
 const enum DistanceUnit {
-    //% block="cm"
-    CM = 58, // Duration of echo round-trip in Microseconds (uS) for two centimeters, 343 m/s at sea level and 20°C
-    //% block="inch"
-    INCH = 148 // Duration of echo round-trip in Microseconds (uS) for two inches, 343 m/s at sea level and 20°C
+  //% block="cm"
+  CM = 58, // Duration of echo round-trip in Microseconds (uS) for two centimeters, 343 m/s at sea level and 20°C
+  //% block="inch"
+  INCH = 148 // Duration of echo round-trip in Microseconds (uS) for two inches, 343 m/s at sea level and 20°C
 }
 
 namespace makerbit {
-    const MAX_ULTRASONIC_TRAVEL_TIME = 300 * DistanceUnit.CM;
-
+ const MAX_ULTRASONIC_TRAVEL_TIME = 300 * DistanceUnit.CM;
+ const ULTRASONIC_MEASUREMENTS = 3;
+    
     interface UltrasonicRoundTrip {
         ts: number;
         rtt: number;
@@ -135,7 +136,7 @@ namespace makerbit {
                 });
             }
 
-            if (trips.length > 3) {
+             while (trips.length > ULTRASONIC_MEASUREMENTS) {
                 trips.shift();
             }
 
